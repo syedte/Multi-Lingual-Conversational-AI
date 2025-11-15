@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  ml-libre:
+    image: libretranslate/libretranslate:latest
+    container_name: ml-libre
+    ports:
+      - "5001:5000"
+    environment:
+      LT_UPDATE_MODELS: "false"
+      LT_LOAD_ONLY: "en,hi,es,ar,ja,zh-Hans"
+
+  ml-api:
+    build: ./server
+    container_name: ml-api
+    ports:
+      - "3001:3001"
+    environment:
+      # point API to the libre service inside the compose network
+      LIBRE_URL: "http://ml-libre:5000"
+      # if ml-indic is running, the API will use it for Telugu
+      INDIC_URL: "http://ml-indic:5002"
+    depends_on:
+      - ml-libre
+
+  # OPTIONAL Telugu sidecar — only runs if you enable the "indic" profile
+  ml-indic:
+    build: ./indic-te
+    container_name: ml-indic
+    profiles: ["indic"]
+    ports:
+      - "5002:5002"

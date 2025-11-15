@@ -1,0 +1,263 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+/* ======= Splash full-screen layout ======= */
+.splash-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: #0f1115;       /* deep charcoal */
+  animation: splashIn 280ms ease-out;
+  will-change: opacity, transform;
+}
+
+.splash-root.fade-out {
+  animation: splashOut 600ms ease-in forwards;
+}
+
+/* Centered container to help with reduced motion and responsive text */
+.splash-center {
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Big glowing title
+   - font-size uses viewport units so it scales from phones to desktops.
+   - clamp(...) keeps it readable on very small/very large screens.
+   Target: "almost half the screen" -> ~12–18vw is visually dominant.
+*/
+.splash-title {
+  margin: 0;
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue",
+               Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: clamp(48px, 16vw, 22vw);
+  color: #e6f0ff;
+
+  /* Glow + subtle gradient fill */
+  background: linear-gradient(180deg, #ffffff 0%, #e9f1ff 35%, #bcd3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 12px rgba(124, 178, 255, 0.45),
+    0 0 32px rgba(124, 178, 255, 0.35),
+    0 0 64px rgba(80, 140, 255, 0.25);
+
+  animation: glowPulse 2200ms ease-in-out infinite alternate;
+}
+
+/* Lightning emojis get a warm glow */
+.splash-title .zap {
+  display: inline-block;
+  filter: drop-shadow(0 0 12px rgba(253, 204, 97, 0.7))
+          drop-shadow(0 0 28px rgba(249, 189, 94, 0.5));
+  transform: translateY(0.06em);
+}
+
+/* If you want the middle word to glow a bit stronger */
+.splash-title .word {
+  text-shadow:
+    0 0 14px rgba(124, 178, 255, 0.55),
+    0 0 38px rgba(124, 178, 255, 0.45),
+    0 0 78px rgba(80, 140, 255, 0.35);
+}
+
+/* Keyframes for subtle entrance and exit */
+@keyframes splashIn {
+  from { opacity: 0; transform: scale(0.985); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes splashOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.02); }
+}
+
+/* Breathing glow */
+@keyframes glowPulse {
+  0% {
+    text-shadow:
+      0 0 10px rgba(124, 178, 255, 0.35),
+      0 0 28px rgba(124, 178, 255, 0.25),
+      0 0 56px rgba(80, 140, 255, 0.18);
+  }
+  100% {
+    text-shadow:
+      0 0 16px rgba(124, 178, 255, 0.55),
+      0 0 44px rgba(124, 178, 255, 0.45),
+      0 0 96px rgba(80, 140, 255, 0.35);
+  }
+}
+
+/* Nice dark canvas behind everything */
+html, body, #root {
+  background: #0f1115;
+}
+/* ====== Dim multilingual background ====== */
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #0f1115;
+}
+
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 1;
+}
+
+/* The background image layer */
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/bg-languages.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.25) blur(3px); /* Dim and soften */
+  opacity: 0.6;
+  transition: opacity 0.8s ease;
+}
+
+/* Your main UI sits above it */
+.app-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem;
+  color: white;
+}
+/* Layout reset */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background: #0f1115;
+  color: #eaeaea;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Shell layers */
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+}
+
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/bg-languages.jpg"); /* put the image in /public */
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.25) blur(3px);
+  opacity: 0.6;
+}
+
+.app-content {
+  position: relative;
+  z-index: 2; /* above background */
+}
+
+/* Splash */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: #0f1115;
+  animation: splashFadeOut 2s ease forwards;
+}
+
+@keyframes splashFadeOut {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.neon-title {
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  /* ~half the screen height but responsive */
+  font-size: clamp(48px, 10vw, 160px);
+
+  /* glowing effect */
+  color: #f4f7ff;
+  text-shadow:
+    0 0 4px rgba(255,255,255,.9),
+    0 0 12px rgba(255,255,255,.8),
+    0 0 30px rgba(106,178,255,.75),
+    0 0 60px rgba(106,178,255,.6),
+    0 0 90px rgba(255,215,0,.45);
+  animation: neonPulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+  from { filter: drop-shadow(0 0 8px rgba(255,215,0,.35)); opacity: 0.96; }
+  to   { filter: drop-shadow(0 0 18px rgba(106,178,255,.65)); opacity: 1; }
+}
+
+@keyframes splashFade {
+  to { opacity: 0; visibility: hidden; }
+}
